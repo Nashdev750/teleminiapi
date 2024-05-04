@@ -7,7 +7,7 @@ const orderSchema = new mongoose.Schema({
     default: undefined
   },
    shippingdetails: {
-    type: String,
+    type: Object,
     required: true
   },
   items: {

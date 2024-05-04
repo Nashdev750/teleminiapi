@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/products/product.controller');
 const { createUser, getUsers, editUser, login } = require('../controllers/auth/auth.controller');
-const { createOrder, getOrders, editOrder } = require('../controllers/order/order');
+const { createOrder, getOrders, editOrder, getOrder } = require('../controllers/order/order');
 
 const { authmiddleware } = require('../utils/middleware');
 const storage = multer.diskStorage({
@@ -27,6 +27,7 @@ router.post('/product/create', productController.createProduct);
 router.post('/product/:id', productController.editProduct);
 
 router.get('/orders', getOrders);
+router.get('/order/:id', getOrder);
 router.post('/order/create', createOrder);
 router.post('/order/:id', editOrder);
 
@@ -37,6 +38,21 @@ router.post('/user/:id', editUser);
 router.get('/user/verify', authmiddleware, (req, res)=>{
    res.send(req.user)
 });
+
+router.get('/public/:imageName', (req, res) => {
+  const imageName = req.params.imageName;
+  const directoryPath = path.join(__dirname, '../public');  // Adjust the path according to your setup
+  const imagePath = path.join(directoryPath, imageName);
+
+  // Send the image file
+  res.sendFile(imagePath, (err) => {
+      if (err) {
+          console.log(err);
+          res.status(404).send('Image not found');
+      }
+  });
+});
+
 
 
 

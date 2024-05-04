@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 4000;
 
 
 // Middleware to enable CORS for all origins
-app.use(cors());
+app.use(cors({origin:"https://ac986765.store"}));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 // Middleware to parse JSON bodies
 app.use(express.json({ limit: '50mb' }));

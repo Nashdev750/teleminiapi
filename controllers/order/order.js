@@ -9,6 +9,14 @@ module.exports = {
          res.status(500).send({error:error.message})
        }
     },
+    getOrder: async (req,res)=>{
+       try {
+         const order = await Order.findOne({_id:req.params.id})
+         res.send(order)
+       } catch (error) {
+         res.status(500).send({error:error.message})
+       }
+    },
     createOrder: async (req,res)=>{
        try {
          const order = await Order.create(req.body)
