@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/products/product.controller');
 const { createUser, getUsers, editUser, login } = require('../controllers/auth/auth.controller');
-const { createOrder, getOrders, editOrder, getOrder } = require('../controllers/order/order');
+const { createOrder, getOrders, editOrder, getOrder, deleteOrder } = require('../controllers/order/order');
 const path = require('path');
 
 const { authmiddleware } = require('../utils/middleware');
@@ -31,6 +31,7 @@ router.get('/orders', getOrders);
 router.get('/order/:id', getOrder);
 router.post('/order/create', createOrder);
 router.post('/order/:id', editOrder);
+router.get('/order/delete/:id', deleteOrder);
 
 router.get('/users', getUsers );
 router.post('/user/create', createUser);

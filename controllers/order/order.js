@@ -28,7 +28,17 @@ module.exports = {
     editOrder: async (req,res)=>{
        try {
          const order = await Order.findByIdAndUpdate({_id:req.params.id},req.body)
-         res.send(order)
+         const orders = await Order.find()
+         res.send(orders)
+       } catch (error) {
+         res.status(500).send({error:error.message})
+       }
+    },
+    deleteOrder: async (req,res)=>{
+       try {
+         const order = await Order.findByIdAndDelete({_id:req.params.id},req.body)
+         const orders = await Order.find()
+         res.send(orders)
        } catch (error) {
          res.status(500).send({error:error.message})
        }
