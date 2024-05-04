@@ -49,7 +49,7 @@ router.get('/public/:imageName', (req, res) => {
   res.sendFile(imagePath, (err) => {
       if (err) {
           console.log(err);
-          res.status(404).send('Image not found');
+          res.status(404).send(err.message);
       }
   });
 });
