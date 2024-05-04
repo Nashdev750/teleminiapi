@@ -5,6 +5,7 @@ const router = express.Router();
 const productController = require('../controllers/products/product.controller');
 const { createUser, getUsers, editUser, login } = require('../controllers/auth/auth.controller');
 const { createOrder, getOrders, editOrder, getOrder } = require('../controllers/order/order');
+const path = require('path');
 
 const { authmiddleware } = require('../utils/middleware');
 const storage = multer.diskStorage({
