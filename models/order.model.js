@@ -2,9 +2,17 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
+  orderid: {
+    type: Number,
+    default: 0
+  },
   userid: {
     type: String,
     default: undefined
+  },
+  chatid: {
+    type: Number,
+    require: true
   },
    shippingdetails: {
     type: Object,

@@ -4,10 +4,39 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const productRoutes = require('./routes/product.router');
+const {bot} = require('./bot')
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+
+bot.onText(/\/echo (.+)/, (msg, match) => {
+
+  const chatId = msg.chat.id;
+  const resp = match[1]; // the captured "whatever"
+
+  // send back the matched "whatever" to the chat
+  bot.sendMessage(chatId, resp);
+});
+
+// Listen for any kind of message. There are different kinds of
+// messages.
+bot.on('message', (msg) => {
+  const chatId = msg.chat.id;
+
+  // send a message to the chat acknowledging receipt of their message
+  const options = {
+    reply_markup: {
+        inline_keyboard: [
+            [{
+              text: 'Start Shopping 🛍️',
+              web_app: { url: 'https://ac986765.store' }  // Replace this with your Mini App URL
+          }]
+        ]
+    }
+};
+  bot.sendMessage(chatId, 'Click the button below to start shopping 😊',options);
+});
 
 // Set up Multer storage
 
