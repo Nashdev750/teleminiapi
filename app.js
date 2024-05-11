@@ -4,20 +4,23 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const productRoutes = require('./routes/product.router');
-const {bot} = require('./bot')
+const TelegramBot = require('node-telegram-bot-api');
+
+// replace the value below with the Telegram token you receive from @BotFather
+const token = '7000242911:AAFID_HmudqFWo3HQFo9B3W6nNGQdAnhHqA';
+
+// Create a bot that uses 'polling' to fetch new updates
+const bot = new TelegramBot(token, {polling: true});
+const botMiddleware = (req,res,next)=>{
+  req.bot = bot
+  next()
+}
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+ app.use(botMiddleware)
 
 
-bot.onText(/\/echo (.+)/, (msg, match) => {
-
-  const chatId = msg.chat.id;
-  const resp = match[1]; // the captured "whatever"
-
-  // send back the matched "whatever" to the chat
-  bot.sendMessage(chatId, resp);
-});
 
 // Listen for any kind of message. There are different kinds of
 // messages.

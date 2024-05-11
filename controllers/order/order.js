@@ -1,4 +1,3 @@
-const { bot } = require("../../bot")
 const Order = require("../../models/order.model")
 
 module.exports = {
@@ -21,7 +20,7 @@ module.exports = {
     createOrder: async (req,res)=>{
        try {
          const order = await Order.create(req.body)
-         bot.sendMessage(req.body.chatid,'We received your order. An customer service representative will reach out to confirm your order and take payment')
+         req.bot.sendMessage(req.body.chatid,'We received your order. An customer service representative will reach out to confirm your order and take payment')
          res.send(order)
        } catch (error) {
          res.status(500).send({error:error.message})
