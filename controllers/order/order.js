@@ -29,6 +29,11 @@ module.exports = {
     editOrder: async (req,res)=>{
        try {
          const order = await Order.findByIdAndUpdate({_id:req.params.id},req.body)
+         if(req.body.status == 1){
+           req.bot.sendMessage(order.chatid,'Your order has been confirmed. order Id: #'+order.orderid)
+         }else{
+           req.bot.sendMessage(order.chatid,'Your order has been Cancelled. order Id: #'+order.orderid)
+         }
          const orders = await Order.find()
          res.send(orders)
        } catch (error) {
